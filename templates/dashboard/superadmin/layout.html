@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Super Admin{% endblock %}</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #f3f6fb; color: #0f172a; }
+        .app-shell { display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: linear-gradient(180deg, #0f172a, #1e293b); color: white; padding: 24px 18px; }
+        .sidebar h2 { margin-top: 0; font-size: 22px; }
+        .sidebar a { display: block; padding: 12px 14px; margin: 8px 0; border-radius: 10px; color: white; text-decoration: none; background: rgba(255,255,255,0.08); }
+        .sidebar a.active { background: #f59e0b; color: #111827; font-weight: bold; }
+        .content { flex: 1; padding: 24px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .card { background: white; border-radius: 16px; padding: 18px; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); }
+        .card h3 { margin: 0 0 8px; color: #64748b; }
+        .card p { margin: 0; font-size: 28px; font-weight: bold; }
+        .btn { display: inline-block; padding: 10px 14px; border-radius: 999px; text-decoration: none; color: white; background: #f59e0b; font-weight: 600; border: none; cursor: pointer; }
+        .btn.secondary { background: #2563eb; }
+        form { display: grid; gap: 10px; max-width: 420px; }
+        input, select, textarea { padding: 10px; border: 1px solid #cbd5e1; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th, td { padding: 10px; border-bottom: 1px solid #e5e7eb; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <h2>Nyansa Admin</h2>
+            <a href="{% url 'super_admin_dashboard' %}" class="active">Overview</a>
+            <a href="{% url 'super_admin_users' %}">Manage Users</a>
+            <a href="{% url 'super_admin_rooms' %}">Rooms</a>
+            <a href="{% url 'super_admin_bookings' %}">Bookings</a>
+            <a href="{% url 'super_admin_logs' %}">System Logs</a>
+            <a href="{% url 'guest_list' %}">Guest Registrations</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </aside>
+        <main class="content">
+            <div class="topbar">
+                <div>
+                    <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+                    <p>Welcome back, {{ user.username }}.</p>
+                </div>
+            </div>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

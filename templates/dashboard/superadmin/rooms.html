@@ -1,0 +1,20 @@
+{% extends 'dashboard/superadmin/layout.html' %}
+{% block title %}Super Admin Rooms{% endblock %}
+{% block page_title %}Rooms{% endblock %}
+{% block content %}
+<div class="card">
+    <h3>Room Overview</h3>
+    <table>
+        <thead>
+            <tr><th>Room</th><th>Type</th><th>Status</th><th>Price</th></tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr><td>{{ room.room_number }}</td><td>{{ room.room_type }}</td><td>{{ room.status }}</td><td>${{ room.price_per_night }}</td></tr>
+            {% empty %}
+            <tr><td colspan="4">No rooms registered yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

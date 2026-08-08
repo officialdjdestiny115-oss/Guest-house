@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Room List{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="page-actions" style="justify-content: space-between; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px;">
+        <div>
+            <h1>Room List</h1>
+            <p class="small-note">Keep room inventory up to date and review room status at a glance.</p>
+        </div>
+        <a class="btn" href="/rooms/new/">Add New Room</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Room #</th>
+                <th>Type</th>
+                <th>Capacity</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room.room_number }}</td>
+                <td>{{ room.room_type }}</td>
+                <td>{{ room.capacity }}</td>
+                <td>${{ room.price_per_night }}</td>
+                <td>{{ room.status|title }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5">No rooms added yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="page-actions" style="margin-top: 18px; justify-content: flex-end; display: flex; gap: 10px;">
+        <a class="btn secondary" href="/availability/">View Availability</a>
+        <a class="btn secondary" href="/dashboard/">Dashboard</a>
+    </div>
+</div>
+{% endblock %}

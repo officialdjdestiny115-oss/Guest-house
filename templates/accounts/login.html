@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="card auth-card">
+    <h1>Welcome back</h1>
+    <p>Sign in to access your guest portal.</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button class="btn" type="submit">Sign In</button>
+    </form>
+    <div class="page-actions" style="margin-top: 18px; justify-content: center; display: flex; gap: 10px; flex-wrap: wrap;">
+        <a class="btn secondary" href="/register/">Create Guest Account</a>
+        <a class="btn secondary" href="/availability/">View Rooms</a>
+        <a class="btn secondary" href="/admin-login/">Admin Login</a>
+    </div>
+    <div class="gallery-strip" style="margin-top: 16px;">
+        <img src="/images/room5.jfif" alt="Luxury guest room">
+        <img src="/images/room6.jfif" alt="Bright guest room">
+        <img src="/images/room7.jfif" alt="Elegant stay">
+    </div>
+</div>
+{% endblock %}

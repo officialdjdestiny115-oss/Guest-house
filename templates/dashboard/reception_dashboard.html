@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Reception Dashboard{% endblock %}
+{% block content %}
+<div class="card dashboard-shell">
+    <div class="dashboard-title">
+        <h1>Reception Dashboard</h1>
+        <p>Welcome, {{ user.username }}. Manage arrivals, departures, and reservations with confidence.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn" href="{% url 'booking_create' %}">Create Booking</a>
+        <a class="btn secondary" href="{% url 'room_list' %}">View Rooms</a>
+        <a class="btn secondary" href="{% url 'guest_list' %}">Guest Registrations</a>
+        <a class="btn secondary" href="{% url 'availability' %}">Check Availability</a>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-box"><h3>Available</h3><p>{{ stats.available_rooms }}</p></div>
+        <div class="stat-box"><h3>Occupied</h3><p>{{ stats.occupied_rooms }}</p></div>
+    </div>
+</div>
+{% endblock %}

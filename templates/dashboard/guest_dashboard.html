@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Guest Dashboard{% endblock %}
+{% block content %}
+<div class="card dashboard-shell">
+    <div class="dashboard-title">
+        <h1>Your Booking Dashboard</h1>
+        <p>Welcome! Browse room availability, compare rates, and manage your stay from one place.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn" href="{% url 'availability' %}">View Rooms</a>
+        <a class="btn secondary" href="{% url 'booking_create' %}">Book a Room</a>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-box"><h3>Available Rooms</h3><p>{{ rooms|length }}</p></div>
+    </div>
+    <div class="panel">
+        <h2>Rooms</h2>
+        <div class="room-grid">
+            {% for room in rooms %}
+            <div class="room-card">
+                {% if room.image_url %}<img src="{{ room.image_url }}" alt="{{ room.room_number }}">{% endif %}
+                <h3>{{ room.room_number }} · {{ room.room_type }}</h3>
+                <p>{{ room.description|default:"Comfortable and welcoming accommodation." }}</p>
+                <div class="room-meta">
+                    <span>{{ room.status|title }}</span>
+                    <strong>${{ room.price_per_night }}</strong>
+                </div>
+            </div>
+            {% empty %}
+            <p>No rooms available right now.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

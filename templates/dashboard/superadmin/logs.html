@@ -1,0 +1,10 @@
+{% extends 'dashboard/superadmin/layout.html' %}
+{% block title %}System Logs{% endblock %}
+{% block page_title %}System Logs{% endblock %}
+{% block content %}
+<div class="card">
+    <h3>Activity Summary</h3>
+    <p>No system errors recorded yet.</p>
+    <p>Rooms: {{ rooms.count }} | Bookings: {{ bookings.count }}</p>
+</div>
+{% endblock %}

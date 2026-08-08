@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="card dashboard-shell">
+    <div class="dashboard-title">
+        <h1>Admin Dashboard</h1>
+        <p>Book rooms for guests and manage room availability cleanly.</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn" href="{% url 'booking_create' %}">Create Booking</a>
+        <a class="btn secondary" href="{% url 'room_list' %}">Manage Rooms</a>
+        <a class="btn secondary" href="{% url 'guest_list' %}">Guest Registrations</a>
+        <a class="btn secondary" href="{% url 'availability' %}">Check Availability</a>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-box"><h3>Total Rooms</h3><p>{{ stats.total_rooms }}</p></div>
+        <div class="stat-box"><h3>Available</h3><p>{{ stats.available_rooms }}</p></div>
+        <div class="stat-box"><h3>Occupied</h3><p>{{ stats.occupied_rooms }}</p></div>
+        <div class="stat-box"><h3>Revenue</h3><p>${{ stats.revenue }}</p></div>
+    </div>
+    <div class="panel">
+        <h2>Latest Bookings</h2>
+        <ul>
+            {% for booking in recent_bookings %}
+            <li><strong>{{ booking.guest_name }}</strong> · {{ booking.room.room_number }} · {{ booking.status|title }} · {{ booking.check_in }} to {{ booking.check_out }}</li>
+            {% empty %}
+            <li>No bookings yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

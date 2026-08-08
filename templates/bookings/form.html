@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}New Booking{% endblock %}
+{% block content %}
+<div class="card auth-card">
+    <h1>Create a Guest Booking</h1>
+    <p>Register a new stay and reserve a room for your guest instantly.</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="guest_name" placeholder="Guest Name" required>
+        <input type="text" name="guest_phone" placeholder="Guest Phone" required>
+        <select name="room" required>
+            {% for room in rooms %}
+            <option value="{{ room.id }}">{{ room.room_number }} - {{ room.room_type }} (${{ room.price_per_night }})</option>
+            {% empty %}
+            <option value="">No available rooms</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="check_in" required>
+        <input type="date" name="check_out" required>
+        <input type="number" name="adults" value="1" min="1">
+        <input type="number" name="children" value="0" min="0">
+        <textarea name="notes" placeholder="Notes"></textarea>
+        <button class="btn" type="submit">Create Booking</button>
+    </form>
+    <div class="page-actions" style="margin-top: 18px; justify-content: center; display: flex; gap: 10px; flex-wrap: wrap;">
+        <a class="btn secondary" href="/availability/">View Rooms</a>
+        <a class="btn secondary" href="/dashboard/">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

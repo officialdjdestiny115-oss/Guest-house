@@ -1,0 +1,36 @@
+{% extends 'dashboard/superadmin/layout.html' %}
+{% block title %}Super Admin Overview{% endblock %}
+{% block page_title %}Overview{% endblock %}
+{% block content %}
+<div class="cards">
+    <div class="card">
+        <h3>Total Rooms</h3>
+        <p>{{ stats.total_rooms }}</p>
+    </div>
+    <div class="card">
+        <h3>Available Rooms</h3>
+        <p>{{ stats.available_rooms }}</p>
+    </div>
+    <div class="card">
+        <h3>Occupied Rooms</h3>
+        <p>{{ stats.occupied_rooms }}</p>
+    </div>
+    <div class="card">
+        <h3>Admins</h3>
+        <p>{{ admins.count }}</p>
+    </div>
+</div>
+<div class="card">
+    <h3>Create Admin</h3>
+    {% if message %}
+    <p style="color: #0f766e; font-weight: 600;">{{ message }}</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="hidden" name="action" value="create_admin">
+        <button class="btn" type="submit">Create Admin</button>
+    </form>
+</div>
+{% endblock %}

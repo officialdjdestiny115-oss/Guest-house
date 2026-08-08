@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="card auth-card">
+    <h1>Create Guest Account</h1>
+    <p>Register with your full details to access the guest portal and manage your stay.</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Guest ID" required>
+        <input type="text" name="full_name" placeholder="First Name" required>
+        <input type="text" name="last_name" placeholder="Last Name" required>
+        <input type="text" name="phone" placeholder="Telephone Number" required>
+        <input type="text" name="national_id" placeholder="Card Number / ID" required>
+        <input type="password" name="password1" placeholder="Password" required>
+        <button class="btn" type="submit">Create Account</button>
+    </form>
+    <div class="page-actions" style="margin-top: 18px; justify-content: center; display: flex; gap: 10px; flex-wrap: wrap;">
+        <a class="btn secondary" href="/login/">Already have an account?</a>
+        <a class="btn secondary" href="/availability/">Browse Rooms</a>
+    </div>
+</div>
+{% endblock %}

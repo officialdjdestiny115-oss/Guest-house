@@ -1,0 +1,20 @@
+{% extends 'dashboard/superadmin/layout.html' %}
+{% block title %}Super Admin Bookings{% endblock %}
+{% block page_title %}Bookings{% endblock %}
+{% block content %}
+<div class="card">
+    <h3>Recent Bookings</h3>
+    <table>
+        <thead>
+            <tr><th>Guest</th><th>Room</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr><td>{{ booking.guest_name }}</td><td>{{ booking.room.room_number }}</td><td>{{ booking.status }}</td></tr>
+            {% empty %}
+            <tr><td colspan="3">No bookings yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
