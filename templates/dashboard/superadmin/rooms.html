@@ -2,15 +2,24 @@
 {% block title %}Super Admin Rooms{% endblock %}
 {% block page_title %}Rooms{% endblock %}
 {% block content %}
+<div class="card" style="margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+    <div>
+        <h3>Room Overview</h3>
+        <p class="small-note">Super admin can manage rooms directly or use the shared admin room manager.</p>
+    </div>
+    <div>
+        <a class="btn" href="{% url 'room_list' %}">Manage Rooms</a>
+        <a class="btn secondary" href="{% url 'room_create' %}">Add Room</a>
+    </div>
+</div>
 <div class="card">
-    <h3>Room Overview</h3>
     <table>
         <thead>
             <tr><th>Room</th><th>Type</th><th>Status</th><th>Price</th></tr>
         </thead>
         <tbody>
             {% for room in rooms %}
-            <tr><td>{{ room.room_number }}</td><td>{{ room.room_type }}</td><td>{{ room.status }}</td><td>${{ room.price_per_night }}</td></tr>
+            <tr><td>{{ room.room_number }}</td><td>{{ room.room_type }}</td><td>{{ room.status|title }}</td><td>${{ room.price_per_night }}</td></tr>
             {% empty %}
             <tr><td colspan="4">No rooms registered yet.</td></tr>
             {% endfor %}

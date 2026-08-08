@@ -17,6 +17,7 @@
                 <th>Capacity</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,9 +28,15 @@
                 <td>{{ room.capacity }}</td>
                 <td>${{ room.price_per_night }}</td>
                 <td>{{ room.status|title }}</td>
+                <td>
+                    <form method="post" action="{% url 'room_delete' room.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="btn secondary" style="background:#dc2626;">Delete</button>
+                    </form>
+                </td>
             </tr>
             {% empty %}
-            <tr><td colspan="5">No rooms added yet.</td></tr>
+            <tr><td colspan="6">No rooms added yet.</td></tr>
             {% endfor %}
         </tbody>
     </table>

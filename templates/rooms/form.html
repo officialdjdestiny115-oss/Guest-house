@@ -5,16 +5,20 @@
     <div class="page-actions" style="justify-content: space-between; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px;">
         <div>
             <h1>Add New Room</h1>
-            <p class="small-note">Add rooms with pricing, capacity, and room status so staff can assign guests quickly.</p>
+            <p class="small-note">Enter room details, nightly pricing, and upload a local image file for guests to see.</p>
         </div>
-        <a class="btn secondary" href="/rooms/">Back to Rooms</a>
+        <a class="btn secondary" href="{% url 'room_list' %}">Back to Rooms</a>
     </div>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="text" name="room_number" placeholder="Room Number" required>
         <input type="text" name="room_type" placeholder="Room Type" required>
-        <input type="number" name="capacity" placeholder="Capacity" value="2">
-        <input type="number" step="0.01" name="price_per_night" placeholder="Price per Night" value="0">
+        <input type="number" name="capacity" placeholder="Capacity" value="2" min="1" required>
+        <input type="number" step="0.01" name="price_per_night" placeholder="Price per Night (GHS)" value="0" min="0" required>
+        <label class="file-input-label">
+            Upload Room Image
+            <input type="file" name="image" accept="image/*" required>
+        </label>
         <select name="status">
             <option value="available">Available</option>
             <option value="occupied">Occupied</option>

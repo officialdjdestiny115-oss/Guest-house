@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from dashboard.views import availability, dashboard, guest_dashboard, guest_list, home, register, super_admin_bookings, super_admin_dashboard, super_admin_logs, super_admin_rooms, super_admin_users
-from rooms.views import room_list, room_create
+from rooms.views import room_list, room_create, room_delete
 from bookings.views import booking_create
 
 urlpatterns = [
@@ -38,6 +38,7 @@ urlpatterns = [
     path('super-admin/logs/', super_admin_logs, name='super_admin_logs'),
     path('rooms/', room_list, name='room_list'),
     path('rooms/new/', room_create, name='room_create'),
+    path('rooms/<int:room_id>/delete/', room_delete, name='room_delete'),
     path('bookings/new/', booking_create, name='booking_create'),
     path('admin-login/', auth_views.LoginView.as_view(template_name='accounts/admin_login.html'), name='admin_login'),
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),

@@ -16,6 +16,7 @@ class Room(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
     description = models.TextField(blank=True)
     image_url = models.URLField(blank=True)
+    image = models.ImageField(upload_to='rooms/', blank=True, null=True)
 
     def __str__(self):
         return self.room_number

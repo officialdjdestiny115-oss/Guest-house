@@ -18,12 +18,20 @@
     <div class="room-grid">
         {% for room in rooms %}
         <div class="room-card">
-            {% if room.image_url %}<img src="{{ room.image_url }}" alt="{{ room.room_number }}">{% endif %}
+            {% if room.image %}
+                <img src="{{ room.image.url }}" alt="{{ room.room_number }}">
+            {% elif room.image_url %}
+                <img src="{{ room.image_url }}" alt="{{ room.room_number }}">
+            {% endif %}
             <h3>{{ room.room_number }} · {{ room.room_type }}</h3>
             <p>{{ room.description|default:"Comfortable and welcoming accommodation." }}</p>
             <div class="room-meta">
                 <span>{{ room.status|title }}</span>
-                <strong>${{ room.price_per_night }}</strong>
+                <strong>GH₵{{ room.price_per_night }} / night</strong>
+            </div>
+            <div class="room-details">
+                <span>Capacity: {{ room.capacity }}</span>
+                <span>Type: {{ room.room_type }}</span>
             </div>
         </div>
         {% empty %}

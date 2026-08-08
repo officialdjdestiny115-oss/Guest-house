@@ -8,7 +8,7 @@ from rooms.models import Room
 
 
 def get_display_rooms():
-    rooms = list(Room.objects.all().order_by('room_number'))
+    rooms = list(Room.objects.filter(status='available').order_by('room_number'))
     if rooms:
         return rooms
 

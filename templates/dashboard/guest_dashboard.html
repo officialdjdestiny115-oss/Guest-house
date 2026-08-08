@@ -14,16 +14,29 @@
         <div class="stat-box"><h3>Available Rooms</h3><p>{{ rooms|length }}</p></div>
     </div>
     <div class="panel">
-        <h2>Rooms</h2>
-        <div class="room-grid">
+        <h2>Available Rooms</h2>
+        <div class="room-grid room-grid-full">
             {% for room in rooms %}
-            <div class="room-card">
-                {% if room.image_url %}<img src="{{ room.image_url }}" alt="{{ room.room_number }}">{% endif %}
-                <h3>{{ room.room_number }} · {{ room.room_type }}</h3>
-                <p>{{ room.description|default:"Comfortable and welcoming accommodation." }}</p>
-                <div class="room-meta">
-                    <span>{{ room.status|title }}</span>
-                    <strong>${{ room.price_per_night }}</strong>
+            <div class="room-card room-card-large">
+                {% if room.image %}
+                    <img src="{{ room.image.url }}" alt="{{ room.room_number }}">
+                {% elif room.image_url %}
+                    <img src="{{ room.image_url }}" alt="{{ room.room_number }}">
+                {% endif %}
+                <div class="room-card-content">
+                    <h3>{{ room.room_number }} · {{ room.room_type }}</h3>
+                    <p>{{ room.description|default:"Comfortable and welcoming accommodation." }}</p>
+                    <div class="room-meta">
+                        <span>{{ room.status|title }}</span>
+                        <strong>${{ room.price_per_night }} / night</strong>
+                    </div>
+                    <div class="room-details">
+                        <span>Capacity: {{ room.capacity }}</span>
+                        <span>Type: {{ room.room_type }}</span>
+                    </div>
+                </div>
+                <div class="room-card-actions">
+                    <a class="btn" href="{% url 'booking_create' %}?room={{ room.id }}">Book This Room</a>
                 </div>
             </div>
             {% empty %}
