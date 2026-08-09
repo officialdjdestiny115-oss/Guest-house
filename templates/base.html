@@ -69,6 +69,29 @@
         .page-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
         .small-note { color: #64748b; font-size: 0.95rem; }
         .footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid rgba(148,163,184,0.24); color: #64748b; text-align: center; font-size: 0.95rem; }
+        @media (max-width: 1024px) {
+            .container { padding: 24px 16px 32px; }
+            nav { padding: 16px 20px; }
+            .dashboard-shell { padding: 20px; }
+            .room-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+            .room-card-large { min-height: auto; }
+            .auth-card { margin: 24px auto; padding: 20px; }
+            .feature-grid, .stats-grid, .page-actions { gap: 10px; }
+        }
+        @media (max-width: 720px) {
+            nav { flex-direction: column; align-items: flex-start; }
+            .nav-links { width: 100%; justify-content: flex-start; }
+            .card { padding: 18px; }
+            .hero-card { padding: 28px; min-height: auto; }
+            .room-card img { height: 200px; }
+            .room-card { padding: 16px; }
+            .page-actions { flex-direction: column; align-items: stretch; }
+            .page-actions a, .page-actions button { width: 100%; text-align: center; }
+            .dashboard-title h1 { font-size: 2rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .panel { padding: 18px; }
+            form { gap: 12px; }
+        }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
         @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
     </style>

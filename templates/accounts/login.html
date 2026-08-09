@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
 <div class="card auth-card">
@@ -16,9 +17,9 @@
         <a class="btn secondary" href="/admin-login/">Admin Login</a>
     </div>
     <div class="gallery-strip" style="margin-top: 16px;">
-        <img src="/images/room5.jfif" alt="Luxury guest room">
-        <img src="/images/room6.jfif" alt="Bright guest room">
-        <img src="/images/room7.jfif" alt="Elegant stay">
+        <img src="{% static 'room5.jfif' %}" alt="Luxury guest room">
+        <img src="{% static 'room6.jfif' %}" alt="Bright guest room">
+        <img src="{% static 'room7.jfif' %}" alt="Elegant stay">
     </div>
 </div>
 {% endblock %}

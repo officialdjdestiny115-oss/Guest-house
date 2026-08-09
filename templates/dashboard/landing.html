@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Welcome to Nyansa Guest House{% endblock %}
 {% block content %}
 <div class="hero-card hero-split">
@@ -22,20 +23,20 @@
             <button class="btn" type="submit">Sign In</button>
         </form>
         <div class="gallery-strip">
-            <img src="/images/room1.jfif" alt="Guest room view">
-            <img src="/images/room2.jfif" alt="Warm room interior">
-            <img src="/images/room6.jfif" alt="Elegant room corner">
+            <img src="{% static 'room1.jfif' %}" alt="Guest room view">
+            <img src="{% static 'room2.jfif' %}" alt="Warm room interior">
+            <img src="{% static 'room6.jfif' %}" alt="Elegant room corner">
         </div>
     </div>
 </div>
 <div class="feature-grid">
     <div class="feature-card">
-        <img src="/images/room3.jfif" alt="Comfortable rooms">
+        <img src="{% static 'room3.jfif' %}" alt="Comfortable rooms">
         <h3>Comfortable rooms</h3>
         <p>Easy to browse and book the perfect stay.</p>
     </div>
     <div class="feature-card">
-        <img src="/images/room4.jfif" alt="Guest experience">
+        <img src="{% static 'room4.jfif' %}" alt="Guest experience">
         <h3>Fast booking</h3>
         <p>Clear availability and swift checkout.</p>
     </div>

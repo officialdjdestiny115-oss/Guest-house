@@ -29,8 +29,20 @@
         {% csrf_token %}
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="full_name" placeholder="Full name">
+        <input type="text" name="phone" placeholder="Phone">
+        <input type="text" name="national_id" placeholder="National ID">
         <input type="hidden" name="action" value="create_admin">
         <button class="btn" type="submit">Create Admin</button>
+    </form>
+</div>
+<div class="card" style="margin-top: 18px;">
+    <h3>Reset Super Admin Password</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input type="password" name="new_password" placeholder="New password" required>
+        <input type="hidden" name="action" value="change_super_password">
+        <button class="btn secondary" type="submit">Update Password</button>
     </form>
 </div>
 {% endblock %}

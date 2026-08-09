@@ -17,11 +17,18 @@
                 <td>{{ admin.username }}</td>
                 <td>Admin</td>
                 <td>
-                    <form method="post" style="display:inline;">
+                    <form method="post" style="display:inline; margin-right: 8px;">
                         {% csrf_token %}
                         <input type="hidden" name="action" value="delete_admin">
                         <input type="hidden" name="admin_id" value="{{ admin.id }}">
                         <button class="btn secondary" type="submit">Delete</button>
+                    </form>
+                    <form method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="reset_admin_password">
+                        <input type="hidden" name="admin_id" value="{{ admin.id }}">
+                        <input type="password" name="new_password" placeholder="New password" required style="padding: 8px 10px; border-radius: 10px; border: 1px solid #cbd5e1; margin-right: 6px;">
+                        <button class="btn secondary" type="submit">Reset</button>
                     </form>
                 </td>
             </tr>

@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
@@ -21,7 +21,7 @@ def get_display_rooms():
             'price_per_night': 120 + index * 20,
             'status': 'available',
             'description': 'Bright, calm, and beautifully styled for a memorable stay.',
-            'image_url': f'/images/{image_name}',
+            'image_url': f'/static/{image_name}',
         }
         for index, image_name in enumerate(sample_images, start=1)
     ]
@@ -95,19 +95,28 @@ def availability(request):
 @user_passes_test(lambda user: user.is_superuser)
 def super_admin_dashboard(request):
     message = None
-    if request.method == 'POST' and request.POST.get('action') == 'create_admin':
-        username = request.POST.get('username', '').strip()
-        password = request.POST.get('password', '').strip()
-        full_name = request.POST.get('full_name', '').strip()
-        phone = request.POST.get('phone', '').strip()
-        national_id = request.POST.get('national_id', '').strip()
-        if username and password:
-            if User.objects.filter(username=username).exists():
-                message = f'Username "{username}" already exists.'
-            else:
-                user = User.objects.create_user(username=username, password=password, is_staff=True)
-                StaffProfile.objects.create(user=user, role='admin', full_name=full_name, phone=phone, national_id=national_id)
-                message = f'Admin account "{username}" created successfully.'
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'create_admin':
+            username = request.POST.get('username', '').strip()
+            password = request.POST.get('password', '').strip()
+            full_name = request.POST.get('full_name', '').strip()
+            phone = request.POST.get('phone', '').strip()
+            national_id = request.POST.get('national_id', '').strip()
+            if username and password:
+                if User.objects.filter(username=username).exists():
+                    message = f'Username "{username}" already exists.'
+                else:
+                    user = User.objects.create_user(username=username, password=password, is_staff=True)
+                    StaffProfile.objects.create(user=user, role='admin', full_name=full_name, phone=phone, national_id=national_id)
+                    message = f'Admin account "{username}" created successfully.'
+        elif action == 'change_super_password':
+            new_password = request.POST.get('new_password', '').strip()
+            if new_password:
+                request.user.set_password(new_password)
+                request.user.save()
+                update_session_auth_hash(request, request.user)
+                message = 'Super admin password updated successfully.'
     rooms = Room.objects.all()
     admins = User.objects.filter(is_staff=True).exclude(is_superuser=True)
     stats = {
@@ -122,12 +131,22 @@ def super_admin_dashboard(request):
 @user_passes_test(lambda user: user.is_superuser)
 def super_admin_users(request):
     message = None
-    if request.method == 'POST' and request.POST.get('action') == 'delete_admin':
-        admin_id = request.POST.get('admin_id')
-        admin_user = User.objects.filter(id=admin_id, is_staff=True, is_superuser=False).first()
-        if admin_user:
-            admin_user.delete()
-            message = f'Admin account "{admin_user.username}" removed successfully.'
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'delete_admin':
+            admin_id = request.POST.get('admin_id')
+            admin_user = User.objects.filter(id=admin_id, is_staff=True, is_superuser=False).first()
+            if admin_user:
+                admin_user.delete()
+                message = f'Admin account "{admin_user.username}" removed successfully.'
+        elif action == 'reset_admin_password':
+            admin_id = request.POST.get('admin_id')
+            new_password = request.POST.get('new_password', '').strip()
+            admin_user = User.objects.filter(id=admin_id, is_staff=True, is_superuser=False).first()
+            if admin_user and new_password:
+                admin_user.set_password(new_password)
+                admin_user.save()
+                message = f'Password updated for admin "{admin_user.username}".'
     admins = User.objects.filter(is_staff=True).exclude(is_superuser=True)
     return render(request, 'dashboard/superadmin/users.html', {'admins': admins, 'message': message})
 
