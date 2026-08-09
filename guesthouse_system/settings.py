@@ -18,6 +18,8 @@ DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
     "guest-house-syf1.onrender.com",
+    "localhost",
+    "127.0.0.1",
 ]
 
 # Application definition
